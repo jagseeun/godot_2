@@ -1,0 +1,84 @@
+[gd_scene load_steps=15 format=3 uid="uid://ccw60nt4awikn"]
+
+[ext_resource type="Texture2D" uid="uid://bdjre5raqpnp5" path="res://card_image/card_00.jpg" id="1_kikvd"]
+[ext_resource type="Script" uid="uid://whxxcpaartou" path="res://card.gd" id="1_rjlel"]
+[ext_resource type="Texture2D" uid="uid://fy54twh5ch1i" path="res://card_image/card_01.jpg" id="3_ut1v0"]
+[ext_resource type="Texture2D" uid="uid://bfh8q5uf8mkqi" path="res://card_image/card_02.jpg" id="4_vno60"]
+[ext_resource type="Texture2D" uid="uid://dhh1pnbqx4tvo" path="res://card_image/card_03.jpg" id="5_l0gnn"]
+[ext_resource type="Texture2D" uid="uid://b7hlu8nrpsc6b" path="res://card_image/card_04.jpg" id="6_is7yf"]
+[ext_resource type="Texture2D" uid="uid://p4j85r1af5c8" path="res://card_image/card_05.jpg" id="7_5biq5"]
+[ext_resource type="Texture2D" uid="uid://diyjnidijrdpv" path="res://card_image/card_06.jpg" id="8_kicxe"]
+[ext_resource type="Texture2D" uid="uid://dxa8xcppaejvs" path="res://card_image/card_07.jpg" id="9_oaj0s"]
+[ext_resource type="Texture2D" uid="uid://biy7u1uwngjh6" path="res://card_image/card_08.jpg" id="10_lbpyt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjlel"]
+size = Vector2(124, 123)
+
+[sub_resource type="Animation" id="Animation_ut1v0"]
+resource_name = "disappear"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.0534441, 0.0534441)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.266667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_vno60"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l0gnn"]
+_data = {
+&"RESET": SubResource("Animation_vno60"),
+&"disappear": SubResource("Animation_ut1v0")
+}
+
+[node name="Card" type="Area2D"]
+script = ExtResource("1_rjlel")
+card_sprites = Array[Texture2D]([ExtResource("1_kikvd"), ExtResource("3_ut1v0"), ExtResource("4_vno60"), ExtResource("5_l0gnn"), ExtResource("6_is7yf"), ExtResource("7_5biq5"), ExtResource("8_kicxe"), ExtResource("9_oaj0s"), ExtResource("10_lbpyt")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kikvd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_rjlel")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_l0gnn")
+}
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

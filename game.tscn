@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://nq7xqw5xfmkp"]
+
+[ext_resource type="Script" uid="uid://l8g1mwgnhwyl" path="res://game.gd" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://cif2aske1kb0r" path="res://audio_player.gd" id="2_e2o6t"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_80nbo")
+
+[node name="audio_player" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("2_e2o6t")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="LabelTime" type="Label" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 34.0
+grow_horizontal = 2
+scale = Vector2(1.55232, 1.67555)
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="LabelGameOver" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -191.0
+offset_top = -55.0
+offset_right = 194.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "Congratulations!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonReplay" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -51.0
+offset_top = 23.0
+offset_right = 54.0
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "replay"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/ButtonReplay" to="." method="_on_button_replay_pressed"]
